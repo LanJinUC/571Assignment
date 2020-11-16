@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>401484793633-k1gktijrknod8fon6pl6ejn8nk7ielfe.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.401484793633-k1gktijrknod8fon6pl6ejn8nk7ielfe</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBhf_suB1WglwyekTTviAXViUq6xHSxQ_M</string>
+	<key>GCM_SENDER_ID</key>
+	<string>401484793633</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.PYJY.lanjin.touristLocation</string>
+	<key>PROJECT_ID</key>
+	<string>touristlocation-66169</string>
+	<key>STORAGE_BUCKET</key>
+	<string>touristlocation-66169.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:401484793633:ios:737a3cf220f3e4e213e060</string>
+	<key>DATABASE_URL</key>
+	<string>https://touristlocation-66169.firebaseio.com</string>
+</dict>
+</plist>
