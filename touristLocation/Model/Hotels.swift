@@ -6,8 +6,10 @@
 import Foundation
 
 //MARK: - Hotels
-public struct Hotels {
-
+public struct Hotels: Identifiable {
+        public var id: String {
+            return name
+        }
         public var details : HotelsDetail
         public var link : String
         public var name : String

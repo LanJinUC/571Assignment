@@ -18,87 +18,96 @@ struct ContentView: View {
     
     @ObservedObject var dbFireStore = DbFireStore()
     
-    let experiences: [Experiences] = [Experiences(image: "property1", name: "Paris Best Kept Secrets Tour", price: "$170 per person"), Experiences(image: "property2", name: "Silent Disco Beach yoga", price: "$180 per person"), Experiences(image: "property3", name: "Miamo - Amazing view", price: "$100 per person"), Experiences(image: "property4", name: "Comfy Artist's Home", price: "$80 per person")]
     
     init() {
         UITableView.appearance().separatorStyle = .none
     }
     
+    
     var body: some View {
         NavigationView {
-            VStack {
-                //Search Bar
-                SearchView().shadow(color: Color.gray.opacity(0.4), radius: 4)
-                    .padding(.all)
-                //ScrollView Start
-                ScrollView(.vertical, showsIndicators: false) {
-                    VStack(alignment: .leading) {
-                        Text("Tell Us What Do You Value")
-                            .font(.custom("Helvetica Neue", size: 18))
-                            .fontWeight(.semibold)
-                            .foregroundColor(Color.black.opacity(0.9))
-                        
-                        //List all the hotels
-                        List(self.experiences) { item in
-                            NavigationLink(destination:
-                                PropertyDetailsView(item: item)) {
-                                PropertyView(item: item)
-                                    .padding(.horizontal, -10.0)
-                                    }
-                                }
-                                .frame(height: CGFloat(self.experiences.count) * CGFloat(270))
-                            }.padding(.horizontal, 20)
-                        }.environment(\.defaultMinListRowHeight, 270)
-                    }.navigationBarTitle(Text("Touri").bold(), displayMode: .inline)
-        }.onAppear{
-            self.dbFireStore.fetchDB(city: "London")        }
+            List(dbFireStore.sorted_hotels_by_price) { post in
+                NavigationLink(destination: DetailView(url: post.link)) {
+                    HStack {
+                        RemoteImage(url: post.thumbnailImage)
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 80)
+                        Text(post.score).font(.system(size: 12.0))
+                        Text("$" + post.price + "/night").font(.system(size: 12.0))
+                        Text(post.name).font(.system(size: 12.0))
+                    }
+                }
+            }
+            .navigationBarTitle("Tour Location")
+        }
+        .onAppear {
+            self.dbFireStore.fetchDB(city: "Rome")
+        }
     }
  
 }
-    
 
-struct PropertyView: View {
-    var item: Experiences
-    
-    var body: some View {
-        GeometryReader { geometry in
-            VStack(alignment: .leading) {
-                Image(self.item.image)
-                    .resizable()
-                    .cornerRadius(6.0)
-                    .frame(height: 180)
-                Text("ENTIRE HOUSE - 1 BED")
-                    .foregroundColor(Color.red)
-                    .font(.system(size: 10))
-                .fontWeight(.medium)
-                Text(self.item.name)
-                    .font(.system(size: 18))
-                    .fontWeight(.regular)
-                Text(self.item.price)
-                    .font(.caption)
-                    .fontWeight(.medium)
-                    .foregroundColor(Color(UIColor.darkGray))
-                HStack(alignment: .top) {
-                    ForEach((0...4), id: \.self) { _ in
-                        Image(systemName: "star.fill")
-                            .resizable()
-                            .frame(width: 12.0, height: 12.0)
-                            .foregroundColor(Color.red.opacity(0.8))
-                            .padding(.horizontal, -4.0)
-                    }
-                    Text("5")
-                        .font(.system(size: 11))
-                    .fontWeight(.regular)
-                    .foregroundColor(Color(UIColor.darkGray))
-                    
-                }.padding(.leading, -20.0)
-                .frame(width: 90.0, height: 0.0)
-                
+
+struct RemoteImage: View {
+    private enum LoadState {
+        case loading, success, failure
+    }
+
+    private class Loader: ObservableObject {
+        var data = Data()
+        var state = LoadState.loading
+
+        init(url: String) {
+            guard let parsedURL = URL(string: url) else {
+                fatalError("Invalid URL: \(url)")
             }
-            .frame(height: geometry.size.height)
+
+            URLSession.shared.dataTask(with: parsedURL) { data, response, error in
+                if let data = data, data.count > 0 {
+                    self.data = data
+                    self.state = .success
+                } else {
+                    self.state = .failure
+                }
+
+                DispatchQueue.main.async {
+                    self.objectWillChange.send()
+                }
+            }.resume()
+        }
+    }
+
+    @StateObject private var loader: Loader
+    var loading: Image
+    var failure: Image
+
+    var body: some View {
+        selectImage()
+            .resizable()
+    }
+
+    init(url: String, loading: Image = Image(systemName: "photo"), failure: Image = Image(systemName: "multiply.circle")) {
+        _loader = StateObject(wrappedValue: Loader(url: url))
+        self.loading = loading
+        self.failure = failure
+    }
+
+    private func selectImage() -> Image {
+        switch loader.state {
+        case .loading:
+            return loading
+        case .failure:
+            return failure
+        default:
+            if let image = UIImage(data: loader.data) {
+                return Image(uiImage: image)
+            } else {
+                return failure
+            }
         }
     }
 }
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

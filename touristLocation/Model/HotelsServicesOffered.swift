@@ -6,7 +6,7 @@
 import Foundation
 
 //MARK: - HotelsServicesOffered
-public struct HotelsServicesOffered {
+public struct HotelsServicesOffered{
 
         public var type : String
         public var value : [String]
