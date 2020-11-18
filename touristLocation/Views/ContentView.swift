@@ -23,7 +23,15 @@ struct ContentView: View {
         UITableView.appearance().separatorStyle = .none
     }
     
-    
+    //sorted_hotels_by_price
+    //sorted_hotels_by_rate
+    //hotel
+    //London
+    //Paris
+    //Cancun
+    //Orlando
+    //Vancouver
+    //Rome
     var body: some View {
         NavigationView {
             List(dbFireStore.sorted_hotels_by_price) { post in
@@ -41,7 +49,7 @@ struct ContentView: View {
             .navigationBarTitle("Tour Location")
         }
         .onAppear {
-            self.dbFireStore.fetchDB(city: "Rome")
+            self.dbFireStore.fetchDB(city: "London")
         }
     }
  

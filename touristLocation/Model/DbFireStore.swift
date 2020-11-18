@@ -40,16 +40,30 @@ class DbFireStore:ObservableObject{
                         $0.stringValue}
                     
                     var eachhotelServicesOffered = [HotelsServicesOffered]()
+                    
+                   
+                  
+                    
                     for (_,subJson):(String, JSON) in subJson["details"]["services_offered"] {
                         
                         //convert single hotelsServicesOffered into
                         let type = subJson["type"].stringValue
                         let value = subJson["value"].arrayValue.map {
-                            $0.stringValue}
+                            $0.stringValue
+                            
+                        }
                         let eachServiceOffered = HotelsServicesOffered(type: type, value: value)
                         eachhotelServicesOffered.append(eachServiceOffered)
-                        
+                       
+                       // let services =  eachServiceOffered.value
+                     
+//                        print(services, terminator: "")
+//                        print(",")
                     }
+                    
+                   
+                    
+                   
                     
                     let eachHotelDetails = HotelsDetail(importantFacilities: eachHotelfacilities, latitude: latitude, longitude: longitude, neighborhoodStructures: [], servicesOffered: eachhotelServicesOffered)
                     
@@ -59,6 +73,8 @@ class DbFireStore:ObservableObject{
                     
                     self.hotels.append(eachHotel)
                 }
+                
+                
                 
                 
                 
