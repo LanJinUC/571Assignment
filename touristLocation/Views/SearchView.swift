@@ -11,9 +11,12 @@ import SwiftUI
 struct SearchView: View {
     @State var search = ""
     @State private var isEditing = false
-
+    
+    
     var body: some View {
+        
         HStack {
+            
             HStack() {
                 Image(systemName: "magnifyingglass")
                 .foregroundColor(Color(UIColor.lightGray))
