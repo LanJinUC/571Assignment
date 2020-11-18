@@ -55,7 +55,7 @@ struct ContentView: View {
             }
         }
         .onAppear {
-            self.dbFireStore.fetchDB(city: "London")
+            self.dbFireStore.fetchDB(city: "Paris")
         }
     }
  
