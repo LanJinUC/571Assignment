@@ -82,12 +82,15 @@ struct MainView: View {
     @Binding var showMenu: Bool
     
     var body: some View {
-        Button(action: {
-            withAnimation {
-               self.showMenu = true
+        VStack{
+            Button(action: {
+                withAnimation {
+                   self.showMenu = true
+                }
+            }) {
+                Text("Show Menu")
             }
-        }) {
-            Text("Show Menu")
+            HotelsView()
         }
     }
 }
