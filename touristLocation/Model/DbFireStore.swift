@@ -131,7 +131,7 @@ class DbFireStore:ObservableObject{
                 }
                 
                 
-                //print(self.sorted_hotels)
+              
                 
                 
                 
