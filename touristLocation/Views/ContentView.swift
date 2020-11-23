@@ -18,7 +18,8 @@ struct ContentView: View {
 
     @ObservedObject var dbFireStore = DbFireStore()
     @State var isPresentingAddModel = false
-    @State var city = "Paris"
+    @State var city = "London"
+
     
     var body: some View {
 
@@ -28,39 +29,50 @@ struct ContentView: View {
                 HStack{
                     Button(action: {
                         self.city = "Paris"
+                        self.shuffle(city: city)
+                       
                     }) {
                         Text("  Paris  ").foregroundColor(.white).background(Color.blue).cornerRadius(5)
                     }
                     
                     Button(action: {
                         self.city = "Rome"
+                        self.shuffle(city: city)
+                        
                     }) {
                         Text("  Rome  ").foregroundColor(.white).background(Color.blue).cornerRadius(5)
                     }
                     Button(action: {
-                        self.city = "Orlando"
+                        self.city = "London"
+                        self.shuffle(city: city)
+                       
                     }) {
                         Text(" Orlando ").foregroundColor(.white).background(Color.blue).cornerRadius(5)
                     }
                     Button(action: {
                         self.city = "Cancun"
+                        self.shuffle(city: city)
+                      
                     }) {
                         Text("  Cancun  ").foregroundColor(.white).background(Color.blue).cornerRadius(5)
                     }
                     Button(action: {
                         self.city = "Vancouver"
+                        self.shuffle(city: city)
+                   
                     }) {
                         Text("  Vancouver  ").foregroundColor(.white).background(Color.blue).cornerRadius(5)
                     }
                 }
                 
-                List(dbFireStore.hotels) { post in
+          
+                List(self.dbFireStore.hotels) { post in
                     NavigationLink(destination: DetailView(url: post.link)) {
                         
                         HStack {
                             RemoteImage(url: post.thumbnailImage)
                                 .aspectRatio(contentMode: .fit)
-                                .frame(width: 100)
+                                .frame(width: 80)
                             Text(post.score).font(.system(size: 12.0))
                             Text("$" + post.price + "/night").font(.system(size: 12.0))
                             Text(post.name).font(.system(size: 12.0))
@@ -83,11 +95,14 @@ struct ContentView: View {
                 
             })
         }
-        .onAppear {
-            self.dbFireStore.fetchDB(city: city)
-        }
+        
         
     }
+    
+    func shuffle(city: String) {
+        
+        self.dbFireStore.fetchDB(city: city)
+        }
  
 }
 

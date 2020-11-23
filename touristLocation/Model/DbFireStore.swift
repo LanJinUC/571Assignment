@@ -15,9 +15,10 @@ class DbFireStore:ObservableObject{
     @Published var sorted_hotels_by_rate = [Hotels]()
     @Published var sorted_hotels_by_price = [Hotels]()
     
+    
     func fetchDB(city: String){
         
-
+        hotels = [Hotels]()
         AF.request("https://touristlocation-66169.firebaseio.com/\(city).json").responseJSON{ response in
             switch response.result{
             case.success(let value):
@@ -41,7 +42,7 @@ class DbFireStore:ObservableObject{
                     
                     var eachhotelServicesOffered = [HotelsServicesOffered]()
                     
-                   
+                   print(name)
                   
                     
                     for (_,subJson):(String, JSON) in subJson["details"]["services_offered"] {
