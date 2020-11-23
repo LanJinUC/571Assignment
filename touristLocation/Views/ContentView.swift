@@ -15,50 +15,78 @@ struct Experiences: Identifiable {
 }
 
 struct ContentView: View {
-    
-   
 
-    
-    @State var showMenu = false
+    @ObservedObject var dbFireStore = DbFireStore()
+    @State var isPresentingAddModel = false
+    @State var city = "Paris"
     
     var body: some View {
-        
-        let drag = DragGesture()
-            .onEnded {
-                if $0.translation.width < -100 {
-                    withAnimation {
-                        self.showMenu = false
-                    }
-                }
-            }
-        
-        return NavigationView {
-            GeometryReader { geometry in
-                ZStack(alignment: .leading) {
-                    MainView(showMenu: self.$showMenu)
-                        .frame(width: geometry.size.width, height: geometry.size.height)
-                        .offset(x: self.showMenu ? geometry.size.width/2 : 0)
-                        .disabled(self.showMenu ? true : false)
-                    if self.showMenu {
-                        MenuView()
-                            .frame(width: geometry.size.width/2)
-                            .transition(.move(edge: .leading))
-                    }
-                }
-                    .gesture(drag)
-            }
-                .navigationBarTitle("Side Menu", displayMode: .inline)
-                .navigationBarItems(leading: (
+
+        NavigationView {
+            VStack{
+                Text("")
+                HStack{
                     Button(action: {
-                        withAnimation {
-                            self.showMenu.toggle()
-                        }
+                        self.city = "Paris"
                     }) {
-                        Image(systemName: "line.horizontal.3")
-                            .imageScale(.large)
+                        Text("  Paris  ").foregroundColor(.white).background(Color.blue).cornerRadius(5)
                     }
-                ))
+                    
+                    Button(action: {
+                        self.city = "Rome"
+                    }) {
+                        Text("  Rome  ").foregroundColor(.white).background(Color.blue).cornerRadius(5)
+                    }
+                    Button(action: {
+                        self.city = "Orlando"
+                    }) {
+                        Text(" Orlando ").foregroundColor(.white).background(Color.blue).cornerRadius(5)
+                    }
+                    Button(action: {
+                        self.city = "Cancun"
+                    }) {
+                        Text("  Cancun  ").foregroundColor(.white).background(Color.blue).cornerRadius(5)
+                    }
+                    Button(action: {
+                        self.city = "Vancouver"
+                    }) {
+                        Text("  Vancouver  ").foregroundColor(.white).background(Color.blue).cornerRadius(5)
+                    }
+                }
+                
+                List(dbFireStore.hotels) { post in
+                    NavigationLink(destination: DetailView(url: post.link)) {
+                        
+                        HStack {
+                            RemoteImage(url: post.thumbnailImage)
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 100)
+                            Text(post.score).font(.system(size: 12.0))
+                            Text("$" + post.price + "/night").font(.system(size: 12.0))
+                            Text(post.name).font(.system(size: 12.0))
+                        }
+                    }
+                }
+                
+            }
+      
+            .navigationBarTitle("Hotel Recommends", displayMode: .inline)
+            .navigationBarItems(trailing: Button(action:{
+                print("Trying to open filter")
+                self.isPresentingAddModel.toggle()
+            }, label:{
+                Text("Add Filter")
+                    
+            }))
+            .sheet(isPresented: $isPresentingAddModel, content:{
+                AddModel(isPresented: $isPresentingAddModel, city: $city)
+                
+            })
         }
+        .onAppear {
+            self.dbFireStore.fetchDB(city: city)
+        }
+        
     }
  
 }
@@ -77,49 +105,30 @@ func convertToInt(number: Double) -> Int{
 }
 
 
-struct MainView: View {
+
+struct AddModel: View{
+    @Binding var isPresented: Bool
+    @Binding var city: String
     
-    @Binding var showMenu: Bool
-    
-    var body: some View {
+    var body: some View{
         VStack{
-            Button(action: {
-                withAnimation {
-                   self.showMenu = true
-                }
-            }) {
-                Text("Show Menu")
+            HStack{
+                
             }
-            HotelsView()
+            Button(action: {
+                print("Button pressed")
+                self.isPresented = false
+                self.city = "Rome"
+                
+            }, label: {
+                Text("Confirm")
+            })
+            Spacer()
         }
+       
+        
     }
+    
 }
 
 
-
-
-//struct HotelsView: View {
-//    @ObservedObject var dbFireStore = DbFireStore()
-//    
-//    var body: some View {
-//        NavigationView {
-//            List(dbFireStore.hotels) { post in
-//                NavigationLink(destination: DetailView(url: post.link)) {
-//                    
-//                    HStack {
-//                        RemoteImage(url: post.thumbnailImage)
-//                            .aspectRatio(contentMode: .fit)
-//                            .frame(width: 100)
-//                        Text(post.score).font(.system(size: 12.0))
-//                        Text("$" + post.price + "/night").font(.system(size: 12.0))
-//                        Text(post.name).font(.system(size: 12.0))
-//                    }
-//                }
-//            }
-//            
-//        }
-//        .onAppear {
-//            self.dbFireStore.fetchDB(city: "Paris")
-//        }
-//    }
-//}

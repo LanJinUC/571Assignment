@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct HotelsView: View {
+ 
     @ObservedObject var dbFireStore = DbFireStore()
     
     var body: some View {
@@ -32,3 +33,5 @@ struct HotelsView: View {
         }
     }
 }
+
+
