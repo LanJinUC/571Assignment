@@ -43,7 +43,7 @@ struct ContentView: View {
                         Text("  Rome  ").foregroundColor(.white).background(Color.blue).cornerRadius(5)
                     }
                     Button(action: {
-                        self.city = "London"
+                        self.city = "Orlando"
                         self.shuffle(city: city)
                        
                     }) {
@@ -78,7 +78,7 @@ struct ContentView: View {
                             Text(post.name).font(.system(size: 12.0))
                         }
                     }
-                }
+                }.onAppear{self.dbFireStore.fetchDB(city: city)}
                 
             }
       
@@ -124,12 +124,22 @@ func convertToInt(number: Double) -> Int{
 struct AddModel: View{
     @Binding var isPresented: Bool
     @Binding var city: String
+//    @Binding var index: Int
+//    @Binding var isChecked: Bool
+    
+    
     
     var body: some View{
         VStack{
-            HStack{
-                
+            Spacer()
+            
+            Text("Most people care about the following features:")
+            ForEach(0..<8){index in
+                ToggleView(isChecked: false, index: index, city: $city)
             }
+            
+            
+            
             Button(action: {
                 print("Button pressed")
                 self.isPresented = false
@@ -140,9 +150,9 @@ struct AddModel: View{
             })
             Spacer()
         }
-       
-        
     }
+    
+    
     
 }
 

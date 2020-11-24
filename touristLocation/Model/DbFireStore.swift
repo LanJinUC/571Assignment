@@ -42,7 +42,7 @@ class DbFireStore:ObservableObject{
                     
                     var eachhotelServicesOffered = [HotelsServicesOffered]()
                     
-                   print(name)
+                    print(name)
                   
                     
                     for (_,subJson):(String, JSON) in subJson["details"]["services_offered"] {
@@ -56,10 +56,10 @@ class DbFireStore:ObservableObject{
                         let eachServiceOffered = HotelsServicesOffered(type: type, value: value)
                         eachhotelServicesOffered.append(eachServiceOffered)
                        
-                       // let services =  eachServiceOffered.value
+                        let services =  eachServiceOffered.value
                      
-//                        print(services, terminator: "")
-//                        print(",")
+                        print(services, terminator: "")
+                        print(",")
                     }
                     
                    
