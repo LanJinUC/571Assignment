@@ -15,8 +15,15 @@ class DbFireStore:ObservableObject{
     @Published var sorted_hotels_by_rate = [Hotels]()
     @Published var sorted_hotels_by_price = [Hotels]()
     
+    let ParisFiler = ["Bidet", "Refrigerator", "Toilet paper", "Free! WiFi is available in all areas and is free of charge.", "Coffee machine", "Kitchen", "Cleaning products", "Toilet"]
+    let RomeFilter = ["Bidet", "Refrigerator", "Toilet paper", "Free! WiFi is available in all areas and is free of charge.", "Coffee machine", "Kitchen", "Cleaning products", "Toilet"]
+    let OrlandoFilter = ["Bidet", "Refrigerator", "Toilet paper", "Free! WiFi is available in all areas and is free of charge.", "Coffee machine", "Kitchen", "Cleaning products", "Toilet"]
+    let CancunFilter = ["Bidet", "Refrigerator", "Toilet paper", "Free! WiFi is available in all areas and is free of charge.", "Coffee machine", "Kitchen", "Cleaning products", "Toilet"]
+    let VancouverFilter = ["Bidet", "Refrigerator", "Toilet paper", "Free! WiFi is available in all areas and is free of charge.", "Coffee machine", "Kitchen", "Cleaning products", "Toilet"]
     
-    func fetchDB(city: String){
+    
+    
+    func findMatch(indexList: [Int], city: String){
         
         hotels = [Hotels]()
         AF.request("https://touristlocation-66169.firebaseio.com/\(city).json").responseJSON{ response in
@@ -40,11 +47,9 @@ class DbFireStore:ObservableObject{
                     let eachHotelfacilities = subJson["details"]["important_facilities"].arrayValue.map {
                         $0.stringValue}
                     
-                    var eachhotelServicesOffered = [HotelsServicesOffered]()
-                    
-                    print(name)
+                  // 2 var eachhotelServicesOffered = [HotelsServicesOffered]()
                   
-                    
+                    var eachhotelServicesOffered = [""]
                     for (_,subJson):(String, JSON) in subJson["details"]["services_offered"] {
                         
                         //convert single hotelsServicesOffered into
@@ -54,20 +59,23 @@ class DbFireStore:ObservableObject{
                             
                         }
                         let eachServiceOffered = HotelsServicesOffered(type: type, value: value)
-                        eachhotelServicesOffered.append(eachServiceOffered)
+                       //3 eachhotelServicesOffered.append(eachServiceOffered)
                        
                         let services =  eachServiceOffered.value
                      
-                        print(services, terminator: "")
-                        print(",")
+                        //print(services, terminator: "")
+                        for ele in services{
+                            eachhotelServicesOffered.append(ele)
+                        }
+                        
                     }
                     
-                   
+                   // print(eachhotelServicesOffered)
                     
                    
                     
+                 //4   let eachHotelDetails = HotelsDetail(importantFacilities: eachHotelfacilities, latitude: latitude, longitude: longitude, neighborhoodStructures: [], servicesOffered: eachhotelServicesOffered)
                     let eachHotelDetails = HotelsDetail(importantFacilities: eachHotelfacilities, latitude: latitude, longitude: longitude, neighborhoodStructures: [], servicesOffered: eachhotelServicesOffered)
-                    
                     hotelsDetail.append(eachHotelDetails)
                     
                     let eachHotel = Hotels(details: eachHotelDetails, link: link, name: name, price: price, score: score ?? "1.0", thumbnailImage: thumbnail_image)
@@ -79,18 +87,18 @@ class DbFireStore:ObservableObject{
                 
                 
                 
-                //let listSet = Set(hotels[0].details.importantFacilities)
-                let findList = Set(["Free WiFi","24-hour front desk"])
-                for hotel in self.hotels{
-                    
-                    let listSet = Set(hotel.details.importantFacilities)
-                    let allElemsContained = findList.isSubset(of: listSet)
-                    
-                    if(allElemsContained){
-                       // print(hotel.name)
-                    }
-                    
-                }
+//                //let listSet = Set(hotels[0].details.importantFacilities)
+//                let findList = Set(["Free WiFi","24-hour front desk"])
+//                for hotel in self.hotels{
+//
+//                    let listSet = Set(hotel.details.importantFacilities)
+//                    let allElemsContained = findList.isSubset(of: listSet)
+//
+//                    if(allElemsContained){
+//                       // print(hotel.name)
+//                    }
+//
+//                }
                 
                 
                 
@@ -131,12 +139,176 @@ class DbFireStore:ObservableObject{
           
                 }
                 
+                var filter : [String]
+                switch city{
+                case "Paris":
+                    filter = self.ParisFiler
+                case "Rome":
+                    filter = self.RomeFilter
+                case "Orlando":
+                    filter = self.OrlandoFilter
+                case "Cancun":
+                    filter = self.CancunFilter
+                case "Vancouver":
+                    filter = self.VancouverFilter
+                default:
+                    filter = self.ParisFiler
+                }
+                var filtedList = [""]
+                for i in 0...7{
+                    if indexList[i] == 1{
+                        filtedList.append(filter[i])
+                    }
+                }
+                filtedList.remove(at: 0)
                 
-              
                 
                 
                 
+                let findList = Set(filtedList)
+                var newHotel = [Hotels]()
+                for hotel in self.hotels{
+
+                    let listSet = Set(hotel.details.servicesOffered)
+                    let allElemsContained = findList.isSubset(of: listSet)
+                    
+                    if(allElemsContained){
+                        //print(hotel)
+                        newHotel.append(hotel)
+                    }
+
+                }
+                
+                self.hotels = newHotel
+               // print(self.hotels)
             
+            case.failure(let error):
+                print(error)
+            }
+        }
+
+        
+       
+        
+        
+        
+    }
+    
+    func fetchDB(city: String){
+        
+        hotels = [Hotels]()
+        AF.request("https://touristlocation-66169.firebaseio.com/\(city).json").responseJSON{ response in
+            switch response.result{
+            case.success(let value):
+                let json = JSON(value)
+                
+                
+                //var hotels = [Hotels]()
+                var hotelsDetail = [HotelsDetail]()
+                
+                for (_,subJson):(String, JSON) in json {
+                    
+                    let name = subJson["name"].stringValue
+                    let price = subJson["price"].stringValue
+                    let score = subJson["score"].string
+                    let thumbnail_image = subJson["thumbnail_image"].stringValue
+                    let link = "https://www.booking.com" + subJson["link"].stringValue
+                    let latitude = subJson["details"]["latitude"].stringValue
+                    let longitude = subJson["details"]["longitude"].stringValue
+                    let eachHotelfacilities = subJson["details"]["important_facilities"].arrayValue.map {
+                        $0.stringValue}
+                    
+                  // 2 var eachhotelServicesOffered = [HotelsServicesOffered]()
+                  
+                    var eachhotelServicesOffered = [""]
+                    for (_,subJson):(String, JSON) in subJson["details"]["services_offered"] {
+                        
+                        //convert single hotelsServicesOffered into
+                        let type = subJson["type"].stringValue
+                        let value = subJson["value"].arrayValue.map {
+                            $0.stringValue
+                            
+                        }
+                        let eachServiceOffered = HotelsServicesOffered(type: type, value: value)
+                       //3 eachhotelServicesOffered.append(eachServiceOffered)
+                       
+                        let services =  eachServiceOffered.value
+                     
+                        //print(services, terminator: "")
+                        for ele in services{
+                            eachhotelServicesOffered.append(ele)
+                        }
+                        
+                    }
+                    
+                   // print(eachhotelServicesOffered)
+                    
+                   
+                    
+                 //4   let eachHotelDetails = HotelsDetail(importantFacilities: eachHotelfacilities, latitude: latitude, longitude: longitude, neighborhoodStructures: [], servicesOffered: eachhotelServicesOffered)
+                    let eachHotelDetails = HotelsDetail(importantFacilities: eachHotelfacilities, latitude: latitude, longitude: longitude, neighborhoodStructures: [], servicesOffered: eachhotelServicesOffered)
+                    hotelsDetail.append(eachHotelDetails)
+                    
+                    let eachHotel = Hotels(details: eachHotelDetails, link: link, name: name, price: price, score: score ?? "1.0", thumbnailImage: thumbnail_image)
+                    
+                    self.hotels.append(eachHotel)
+                }
+                
+                
+                
+                
+                
+//                //let listSet = Set(hotels[0].details.importantFacilities)
+//                let findList = Set(["Free WiFi","24-hour front desk"])
+//                for hotel in self.hotels{
+//
+//                    let listSet = Set(hotel.details.importantFacilities)
+//                    let allElemsContained = findList.isSubset(of: listSet)
+//
+//                    if(allElemsContained){
+//                       // print(hotel.name)
+//                    }
+//
+//                }
+                
+                
+                
+                //let allElemsContained = findList.isSubset(of: listSet)
+                
+               // print(allElemsContained)
+                
+                var scoreList = [Float]()
+                var nameList = [String]()
+                var priceList = [String]()
+                
+                for hotel in self.hotels{
+                    let score = Float(hotel.score) ?? 0.0
+                    let name = hotel.name
+                    let price = hotel.price
+                    
+                    
+                    scoreList.append(score)
+                    nameList.append(name)
+                    priceList.append(price)
+                }
+                
+                let dictionary = Dictionary(uniqueKeysWithValues: zip(nameList, self.hotels))
+                let scoreDictionary = Dictionary(uniqueKeysWithValues: zip(nameList, scoreList))
+                let priceDictionary = Dictionary(uniqueKeysWithValues: zip(nameList, priceList))
+                
+                
+                let sortedScoreDictionary = scoreDictionary.sorted( by: { $0.1 > $1.1 })
+                let sortedPriceDictionary = priceDictionary.sorted(by: { $0.1 < $1.1 })
+                
+                for (k,_) in sortedScoreDictionary{
+                    self.sorted_hotels_by_rate.append(dictionary[k]!)
+                    
+                }
+                
+                for (k,v) in sortedPriceDictionary{
+                    self.sorted_hotels_by_price.append(dictionary[k]!)
+          
+                }
             
             case.failure(let error):
                 print(error)

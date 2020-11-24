@@ -43,8 +43,10 @@ struct ToggleView: View {
             
             if(self.isChecked){
                 Text("\(self.toggleAction(state: "Checked", index: index))")
+                
             }else{
                 Text("\(self.toggleAction(state: "Unchecked", index: index))")
+                
             }
             
         })

@@ -12,6 +12,7 @@ public struct HotelsDetail {
         public var latitude : String
         public var longitude : String
         public var neighborhoodStructures : [AnyObject]
-        public var servicesOffered : [HotelsServicesOffered]
+       //1 public var servicesOffered : [HotelsServicesOffered]
+        public var servicesOffered : [String]
         
 }
