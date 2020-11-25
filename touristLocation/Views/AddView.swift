@@ -241,7 +241,6 @@ struct AddModel: View{
             Button(action: {
                 print("Button pressed")
                 self.isPresented = false
-                self.dbFireStore.findMatch(indexList: indexList, city: city)
                 self.newFunc(indexList)
             }, label: {
                 Text("Confirm")
@@ -254,9 +253,9 @@ struct AddModel: View{
         
         }
     
-        let ParisFiler = ["24-hour front desk", "Air conditioning", "Airport pick up", "Free! WiFi is available in all areas and is free of charge.", "Coffee machine", "Kitchen", "Cleaning products", "Toilet"]
-        let RomeFilter = ["24-hour front desk", "Air conditioning", "Airport pick up", "Pet bowls", "Free! WiFi is available in all areas and is free of charge.", "Kitchen", "Non-smoking throughout", "Luggage storage"]
-        let OrlandoFilter = ["Bidet", "Refrigerator", "Toilet paper", "Free! WiFi is available in all areas and is free of charge.", "Coffee machine", "Kitchen", "Cleaning products", "Toilet"]
-        let CancunFilter = ["Bidet", "Refrigerator", "Toilet paper", "Free! WiFi is available in all areas and is free of charge.", "Coffee machine", "Kitchen", "Cleaning products", "Toilet"]
-        let VancouverFilter = ["Bidet", "Refrigerator", "Toilet paper", "Free! WiFi is available in all areas and is free of charge.", "Coffee machine", "Kitchen", "Cleaning products", "Toilet"]
+        let ParisFiler = ["24-hour front desk", "24-hour security", "English", "Face maskes for guests available", "Wheelchair accessible", "Kitchen", "Cleaning products", "Dry cleaning"]
+        let RomeFilter = ["24-hour front desk", "Air conditioning", "Airport pick up", "Pet bowls", "Free! WiFi is available in all areas and is free of charge.", "On-site coffe house", "Non-smoking throughout", "Luggage storage"]
+        let OrlandoFilter = ["24-hour front desk", "Open all year", "Restaurant", "Free! WiFi is available in all areas and is free of charge.", "Coffee machine", "Kitchen", "Cleaning products", "Toilet"]
+        let CancunFilter = ["Free! WiFi is available in all areas and is free of charge.", "Laundry", "24-hour front desk", "Free! WiFi is available in all areas and is free of charge.", "Alarm clock", "Garden", "24-hour security", "Kid's club"]
+        let VancouverFilter = ["24-hour front desk", "Accessible Parking", "Free! WiFi is available in all areas and is free of charge.", "Private bathroom", "Refrigerator", "Kitchen", "Express check-in/check-out", "Karaoke"]
 }
