@@ -15,11 +15,11 @@ class DbFireStore:ObservableObject{
     @Published var sorted_hotels_by_rate = [Hotels]()
     @Published var sorted_hotels_by_price = [Hotels]()
     
-    let ParisFiler = ["24-hour front desk", "24-hour security", "English", "Face maskes for guests available", "Wheelchair accessible", "Kitchen", "Cleaning products", "Dry cleaning"]
-    let RomeFilter = ["24-hour front desk", "Air conditioning", "Airport pick up", "Pet bowls", "Free! WiFi is available in all areas and is free of charge.", "On-site coffe house", "Non-smoking throughout", "Luggage storage"]
-    let OrlandoFilter = ["24-hour front desk", "Open all year", "Restaurant", "Free! WiFi is available in all areas and is free of charge.", "Coffee machine", "Kitchen", "Cleaning products", "Toilet"]
-    let CancunFilter = ["Free! WiFi is available in all areas and is free of charge.", "Laundry", "24-hour front desk", "Free! WiFi is available in all areas and is free of charge.", "Alarm clock", "Garden", "24-hour security", "Kid's club"]
-    let VancouverFilter = ["24-hour front desk", "Accessible Parking", "Free! WiFi is available in all areas and is free of charge.", "Private bathroom", "Refrigerator", "Kitchen", "Express check-in/check-out", "Karaoke"]
+    let ParisFiler = ["24-hour front desk", "24-hour security", "English", "Face masks for guests available", "Wheelchair accessible", "Kitchen", "Cleaning products", "Dry cleaning"]
+    let RomeFilter = ["24-hour front desk", "Air conditioning", "Airport pick up", "Pet bowls", "Free! WiFi is available in all areas and is free of charge.", "On-site coffee house", "Non-smoking throughout", "Luggage storage"]
+    let OrlandoFilter = ["24-hour front desk", "Refrigerator", "24-hour front desk", "Free! WiFi is available in all areas and is free of charge.", "Coffee machine", "Kitchen", "Cleaning products", "Accessible parking"]
+    let CancunFilter = ["Free! WiFi is available in all areas and is free of charge.", "Laundry", "24-hour front desk", "Free! WiFi is available in all areas and is free of charge.", "Alarm clock", "Garden", "24-hour security", "Kids' club"]
+    let VancouverFilter = ["24-hour front desk", "Accessible parking", "Free! WiFi is available in all areas and is free of charge.", "Private bathroom", "Refrigerator", "Pet bowls", "Express check-in/check-out", "Air conditioning"]
     
     
     

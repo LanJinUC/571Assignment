@@ -35,22 +35,22 @@ struct AddModel: View{
         VStack{
           //  Spacer()
             
-            Text("Most people care about the following features:")
+            Text("Most people care about the followings:").bold().foregroundColor(.blue)
             Toggle(isOn: self.$isChecked0, label: {
                 
                 switch city{
                 case "Paris":
-                    Text("  \(ParisFiler[index0])")
+                    Text("  \(ParisFiler[index0])").bold()
                 case "Rome":
-                    Text("  \(RomeFilter[index0])")
+                    Text("  \(RomeFilter[index0])").bold()
                 case "Orlando":
-                    Text("  \(OrlandoFilter[index0])")
+                    Text("  \(OrlandoFilter[index0])").bold()
                 case "Cancun":
-                    Text("  \(CancunFilter[index0])")
+                    Text("  \(CancunFilter[index0])").bold()
                 case "Vancouver":
-                    Text("  \(VancouverFilter[index0])")
+                    Text("  \(VancouverFilter[index0])").bold()
                 default:
-                    Text("  \(ParisFiler[index0])")
+                    Text("  \(ParisFiler[index0])").bold()
                 }
             }).onChange(of: isChecked0, perform: { value in
                 if isChecked0 == true{
@@ -65,17 +65,17 @@ struct AddModel: View{
                 
                 switch city{
                 case "Paris":
-                    Text("  \(ParisFiler[index1])")
+                    Text("  \(ParisFiler[index1])").bold()
                 case "Rome":
-                    Text("  \(RomeFilter[index1])")
+                    Text("  \(RomeFilter[index1])").bold()
                 case "Orlando":
-                    Text("  \(OrlandoFilter[index1])")
+                    Text("  \(OrlandoFilter[index1])").bold()
                 case "Cancun":
-                    Text("  \(CancunFilter[index1])")
+                    Text("  \(CancunFilter[index1])").bold()
                 case "Vancouver":
-                    Text("  \(VancouverFilter[index1])")
+                    Text("  \(VancouverFilter[index1])").bold()
                 default:
-                    Text("  \(ParisFiler[index1])")
+                    Text("  \(ParisFiler[index1])").bold()
                 }
             }).onChange(of: isChecked1, perform: { value in
                 if isChecked1 == true{
@@ -90,17 +90,17 @@ struct AddModel: View{
                 
                 switch city{
                 case "Paris":
-                    Text("  \(ParisFiler[index2])")
+                    Text("  \(ParisFiler[index2])").bold()
                 case "Rome":
-                    Text("  \(RomeFilter[index2])")
+                    Text("  \(RomeFilter[index2])").bold()
                 case "Orlando":
-                    Text("  \(OrlandoFilter[index2])")
+                    Text("  \(OrlandoFilter[index2])").bold()
                 case "Cancun":
-                    Text("  \(CancunFilter[index2])")
+                    Text("  \(CancunFilter[index2])").bold()
                 case "Vancouver":
-                    Text("  \(VancouverFilter[index2])")
+                    Text("  \(VancouverFilter[index2])").bold()
                 default:
-                    Text("  \(ParisFiler[index2])")
+                    Text("  \(ParisFiler[index2])").bold()
                 }
             }).onChange(of: isChecked2, perform: { value in
                 if isChecked2 == true{
@@ -115,17 +115,17 @@ struct AddModel: View{
                 
                 switch city{
                 case "Paris":
-                    Text("  \(ParisFiler[index3])")
+                    Text("  \(ParisFiler[index3])").bold()
                 case "Rome":
-                    Text("  \(RomeFilter[index3])")
+                    Text("  \(RomeFilter[index3])").bold()
                 case "Orlando":
-                    Text("  \(OrlandoFilter[index3])")
+                    Text("  \(OrlandoFilter[index3])").bold()
                 case "Cancun":
-                    Text("  \(CancunFilter[index3])")
+                    Text("  \(CancunFilter[index3])").bold()
                 case "Vancouver":
-                    Text("  \(VancouverFilter[index3])")
+                    Text("  \(VancouverFilter[index3])").bold()
                 default:
-                    Text("  \(ParisFiler[index3])")
+                    Text("  \(ParisFiler[index3])").bold()
                 }
             }).onChange(of: isChecked3, perform: { value in
                 if isChecked3 == true{
@@ -140,17 +140,17 @@ struct AddModel: View{
                 
                 switch city{
                 case "Paris":
-                    Text("  \(ParisFiler[index4])")
+                    Text("  \(ParisFiler[index4])").bold()
                 case "Rome":
-                    Text("  \(RomeFilter[index4])")
+                    Text("  \(RomeFilter[index4])").bold()
                 case "Orlando":
-                    Text("  \(OrlandoFilter[index4])")
+                    Text("  \(OrlandoFilter[index4])").bold()
                 case "Cancun":
-                    Text("  \(CancunFilter[index4])")
+                    Text("  \(CancunFilter[index4])").bold()
                 case "Vancouver":
-                    Text("  \(VancouverFilter[index4])")
+                    Text("  \(VancouverFilter[index4])").bold()
                 default:
-                    Text("  \(ParisFiler[index4])")
+                    Text("  \(ParisFiler[index4])").bold()
                 }
             }).onChange(of: isChecked4, perform: { value in
                 if isChecked4 == true{
@@ -165,17 +165,17 @@ struct AddModel: View{
 
                 switch city{
                 case "Paris":
-                    Text("  \(ParisFiler[index5])")
+                    Text("  \(ParisFiler[index5])").bold()
                 case "Rome":
-                    Text("  \(RomeFilter[index5])")
+                    Text("  \(RomeFilter[index5])").bold()
                 case "Orlando":
-                    Text("  \(OrlandoFilter[index5])")
+                    Text("  \(OrlandoFilter[index5])").bold()
                 case "Cancun":
-                    Text("  \(CancunFilter[index5])")
+                    Text("  \(CancunFilter[index5])").bold()
                 case "Vancouver":
-                    Text("  \(VancouverFilter[index5])")
+                    Text("  \(VancouverFilter[index5])").bold()
                 default:
-                    Text("  \(ParisFiler[index5])")
+                    Text("  \(ParisFiler[index5])").bold()
                 }
             }).onChange(of: isChecked5, perform: { value in
                 if isChecked5 == true{
@@ -190,17 +190,17 @@ struct AddModel: View{
 
                 switch city{
                 case "Paris":
-                    Text("  \(ParisFiler[index6])")
+                    Text("  \(ParisFiler[index6])").bold()
                 case "Rome":
-                    Text("  \(RomeFilter[index6])")
+                    Text("  \(RomeFilter[index6])").bold()
                 case "Orlando":
-                    Text("  \(OrlandoFilter[index6])")
+                    Text("  \(OrlandoFilter[index6])").bold()
                 case "Cancun":
-                    Text("  \(CancunFilter[index6])")
+                    Text("  \(CancunFilter[index6])").bold()
                 case "Vancouver":
-                    Text("  \(VancouverFilter[index6])")
+                    Text("  \(VancouverFilter[index6])").bold()
                 default:
-                    Text("  \(ParisFiler[index6])")
+                    Text("  \(ParisFiler[index6])").bold()
                 }
             }).onChange(of: isChecked6, perform: { value in
                 if isChecked6 == true{
@@ -215,17 +215,17 @@ struct AddModel: View{
 
                 switch city{
                 case "Paris":
-                    Text("  \(ParisFiler[index7])")
+                    Text("  \(ParisFiler[index7])").bold()
                 case "Rome":
-                    Text("  \(RomeFilter[index7])")
+                    Text("  \(RomeFilter[index7])").bold()
                 case "Orlando":
-                    Text("  \(OrlandoFilter[index7])")
+                    Text("  \(OrlandoFilter[index7])").bold()
                 case "Cancun":
-                    Text("  \(CancunFilter[index7])")
+                    Text("  \(CancunFilter[index7])").bold()
                 case "Vancouver":
-                    Text("  \(VancouverFilter[index7])")
+                    Text("  \(VancouverFilter[index7])").bold()
                 default:
-                    Text("  \(ParisFiler[index7])")
+                    Text("  \(ParisFiler[index7])").bold()
                 }
             }).onChange(of: isChecked7, perform: { value in
                 if isChecked7 == true{
@@ -237,25 +237,38 @@ struct AddModel: View{
             })
             
             
+            HStack{
+                Button(action: {
+                    print("Button pressed")
+                    self.isPresented = false
+                    self.newFunc(indexList)
+                }, label: {
+                    Text("    Confirm    ").bold().background(Color.green).cornerRadius(12).padding().foregroundColor(.white)
+                })
+                
+                
+                Button(action: {
+                    print("Button pressed")
+                    self.isPresented = false
+                }, label: {
+                    Text("    Cancle    ").bold().background(Color.red).cornerRadius(12).padding().foregroundColor(.white)
+                })
+                
+            }
+               
             
-            Button(action: {
-                print("Button pressed")
-                self.isPresented = false
-                self.newFunc(indexList)
-            }, label: {
-                Text("Confirm")
-            })
+       
             
             //Spacer()
             
       
-        }
+            }
         
         }
     
-        let ParisFiler = ["24-hour front desk", "24-hour security", "English", "Face maskes for guests available", "Wheelchair accessible", "Kitchen", "Cleaning products", "Dry cleaning"]
-        let RomeFilter = ["24-hour front desk", "Air conditioning", "Airport pick up", "Pet bowls", "Free! WiFi is available in all areas and is free of charge.", "On-site coffe house", "Non-smoking throughout", "Luggage storage"]
-        let OrlandoFilter = ["24-hour front desk", "Open all year", "Restaurant", "Free! WiFi is available in all areas and is free of charge.", "Coffee machine", "Kitchen", "Cleaning products", "Toilet"]
-        let CancunFilter = ["Free! WiFi is available in all areas and is free of charge.", "Laundry", "24-hour front desk", "Free! WiFi is available in all areas and is free of charge.", "Alarm clock", "Garden", "24-hour security", "Kid's club"]
-        let VancouverFilter = ["24-hour front desk", "Accessible Parking", "Free! WiFi is available in all areas and is free of charge.", "Private bathroom", "Refrigerator", "Kitchen", "Express check-in/check-out", "Karaoke"]
+    let ParisFiler = ["24-hour front desk", "24-hour security", "English", "Face masks for guests available", "Wheelchair accessible", "Kitchen", "Cleaning products", "Dry cleaning"]
+    let RomeFilter = ["24-hour front desk", "Air conditioning", "Airport pick up", "Pet bowls", "Free! WiFi is available in all areas and is free of charge.", "On-site coffee house", "Non-smoking throughout", "Luggage storage"]
+    let OrlandoFilter = ["24-hour front desk", "Refrigerator", "24-hour front desk", "Free! WiFi is available in all areas and is free of charge.", "Coffee machine", "Kitchen", "Cleaning products", "Accessible parking"]
+    let CancunFilter = ["Free! WiFi is available in all areas and is free of charge.", "Laundry", "24-hour front desk", "Free! WiFi is available in all areas and is free of charge.", "Alarm clock", "Garden", "24-hour security", "Kids' club"]
+    let VancouverFilter = ["24-hour front desk", "Accessible parking", "Free! WiFi is available in all areas and is free of charge.", "Private bathroom", "Refrigerator", "Pet bowls", "Express check-in/check-out", "Air conditioning"]
 }
